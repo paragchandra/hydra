@@ -145,14 +145,7 @@ public class FileStore implements TestStore {
         }
 
         for(TestSuite suite : testTimes) {
-            final String key;
-            if(!suite.getClassName().endsWith(".class")) {
-                key = suite.getClassName() + ".class";
-            } else {
-                key = suite.getClassName();
-            }
-
-            final Optional<TestTime> testTime = testCache.get(project).stream().filter(x -> x.getTestName().equals(key)).findFirst();
+            final Optional<TestTime> testTime = testCache.get(project).stream().filter(x -> x.getTestName().equals(suite.getClassName())).findFirst();
             if(testTime.isPresent()) {
                 testCache.remove(project, testTime.get());
             }
